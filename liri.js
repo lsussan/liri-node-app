@@ -1,7 +1,7 @@
 
 //get data from keys.js
 var keys = require('./keys.js');
-var twitter = require('twitter');
+var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
 var fs = require('fs');
@@ -117,12 +117,12 @@ function movieSelector() {
 		searchMovie = secondEntry;
 	};
 
-	var query = 'http://www.omdbapi.com/?t=' + searchMovie +'&y=&plot=long&tomatoes=true&r=json';
+	var query = 'http://www.omdbapi.com/?t=' + searchMovie +'&apiKey=40e9cece&y=&plot=long&tomatoes=true&r=json';
 	request(query, function(error, response, body){
 		if(!error && response.statusCode == 200){
 			console.log("Title: " + JSON.parse(body)["Title"]);
 			console.log("Year: " + JSON.parse(body)["Year"]);
-			console.log("IMDb Rating: " + JSON.parse(body)["imdbrating"]);
+			console.log("IMDb Rating: " + JSON.parse(body)["imdbRating"]);
 			console.log("Country: " + JSON.parse(body)["Country"]);
 			console.log("Language: " + JSON.parse(body)["Language"]);
 			console.log("Plot: " + JSON.parse(body)["Plot"]);
