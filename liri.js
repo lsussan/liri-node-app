@@ -9,7 +9,7 @@ var fs = require('fs');
 
 // capture user input, and tell user what to enter
 
-console.log("Type my-tweets, spotify-this-song, movie-this, or do-what-it-says to get started!");
+console.log("Welcome to the Liri-Bot....Fielding your request now....");
 
 //first 
 var firstEntry = process.argv[2];
@@ -47,7 +47,9 @@ function theSwitcheroo(){
 //functions / options
 
 function fetchTweets(){
-	console.log("Tweets coming at you!");
+	console.log("....Here are 20 Tweets from LDSussan....");
+	console.log("========================================");
+
 
 	// variable for twitter, load keys from keys.js
 	var client = new Twitter({
@@ -69,7 +71,7 @@ function fetchTweets(){
 		for (i=0; i<tweets.length; i++) {
 			var returnData = ('Number: ' + (i+1) + '\n' + tweets[i].created_at + '\n' + tweets[i].text + '\n');
 			console.log(returnData);
-			console.log("===================================");
+			console.log("========================================");
 		  }	
 		};
 	});
@@ -77,7 +79,7 @@ function fetchTweets(){
 
 
 function spotifyMe(){
-	console.log("TONS of music!");
+	console.log("....Your Spotify song query is underway, see below for results....");
 
 	var spotify = new Spotify({
   		id: "3c34baae066b4d4fbf96847cf7913cce",
@@ -98,19 +100,19 @@ function spotifyMe(){
 			console.log('Error occured: ' + err);	
 			return;
 		}else{
-			console.log('====================================');
+			console.log('=========================================');
 			console.log("Artist: " + data.tracks.items[0].artists[0].name);
 			console.log("Song: " + data.tracks.items[0].name);
 			console.log("Album: " + data.tracks.items[0].album.name);
 			console.log("Preview Here: " + data.tracks.items[0].preview_url);
-			console.log('====================================');
+			console.log('=========================================');
 
 		}
 	});	
 };
 
 function movieSelector() {
-	console.log("What's your movie choice?");
+	console.log("....Here are yourmovie selection details, look down....");
 
 	var searchMovie;
 
@@ -123,7 +125,7 @@ function movieSelector() {
 	var query = 'http://www.omdbapi.com/?t=' + searchMovie +'&apiKey=40e9cece&y=&plot=long&tomatoes=true&r=json';
 	request(query, function(err, response, body){
 		if(!err && response.statusCode == 200){
-			console.log('===================================');
+			console.log('========================================');
 			console.log("Title: " + JSON.parse(body).Title);
 			console.log("Year: " + JSON.parse(body).Year);
 			console.log("IMDb Rating: " + JSON.parse(body).imdbRating);
@@ -133,14 +135,14 @@ function movieSelector() {
 			console.log("Actors: " + JSON.parse(body).Actors);
 			console.log("Rotten Tomatoes Rating: " + JSON.parse(body).tomatoRating);
 			console.log("Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
-			console.log('====================================');
+			console.log('=========================================');
 		}
 	});
 };
 
 function readTextFile(){
-	console.log("Looking at random.txt file now, please wait");
-	console.log("====================================");
+	console.log("....Looking at random.txt file now, let's see what it returns....");
+	console.log("=========================================");
 
 	//fs file to read random.txt
 	fs.readFile("random.txt", "utf8", function(err, data) {
