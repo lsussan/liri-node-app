@@ -64,12 +64,12 @@ function fetchTweets(){
 	};
 	
 	//get method for twitter instance
-	client.get('statuses/user_timeline', parameters, function(error, tweets, response){
-		if (!error) {
+	client.get('statuses/user_timeline', parameters, function(err, tweets, response){
+		if (!err) {
 		for (i=0; i<tweets.length; i++) {
 			var returnData = ('Number: ' + (i+1) + '\n' + tweets[i].created_at + '\n' + tweets[i].text + '\n');
 			console.log(returnData);
-			console.log("-------------------------");
+			console.log("===================================");
 		  }	
 		};
 	});
@@ -88,20 +88,23 @@ function spotifyMe(){
 
 	var searchTrack;
 	if(secondEntry === undefined){
-		searchTrack = "The Sign";
+		searchTrack = "The Sign, Ace of Base";
 	}else{
 		searchTrack = secondEntry;
 	}
 	//spotify search
 	spotify.search({ type: 'track', query: searchTrack}, function(err, data){
-		if(error){
+		if(err){
 			console.log('Error occured: ' + err);	
 			return;
 		}else{
+			console.log('====================================');
 			console.log("Artist: " + data.tracks.items[0].artists[0].name);
 			console.log("Song: " + data.tracks.items[0].name);
 			console.log("Album: " + data.tracks.items[0].album.name);
 			console.log("Preview Here: " + data.tracks.items[0].preview_url);
+			console.log('====================================');
+
 		}
 	});	
 };
@@ -118,46 +121,61 @@ function movieSelector() {
 	};
 
 	var query = 'http://www.omdbapi.com/?t=' + searchMovie +'&apiKey=40e9cece&y=&plot=long&tomatoes=true&r=json';
-	request(query, function(error, response, body){
-		if(!error && response.statusCode == 200){
-			console.log("Title: " + JSON.parse(body)["Title"]);
-			console.log("Year: " + JSON.parse(body)["Year"]);
-			console.log("IMDb Rating: " + JSON.parse(body)["imdbRating"]);
-			console.log("Country: " + JSON.parse(body)["Country"]);
-			console.log("Language: " + JSON.parse(body)["Language"]);
-			console.log("Plot: " + JSON.parse(body)["Plot"]);
-			console.log("Actors: " + JSON.parse(body)["Actors"]);
-			console.log("Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"]);
-			console.log("Rotten Tomatoes URL: " + JSON.parse(body)["tomatoURL"]);
+	request(query, function(err, response, body){
+		if(!err && response.statusCode == 200){
+			console.log('===================================');
+			console.log("Title: " + JSON.parse(body).Title);
+			console.log("Year: " + JSON.parse(body).Year);
+			console.log("IMDb Rating: " + JSON.parse(body).imdbRating);
+			console.log("Country: " + JSON.parse(body).Country);
+			console.log("Language: " + JSON.parse(body).Language);
+			console.log("Plot: " + JSON.parse(body).Plot);
+			console.log("Actors: " + JSON.parse(body).Actors);
+			console.log("Rotten Tomatoes Rating: " + JSON.parse(body).tomatoRating);
+			console.log("Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
+			console.log('====================================');
 		}
 	});
 };
 
 function readTextFile(){
-	console.log("Looking at random.txt now");
-	fs.readFile("random.txt", "utf8", function(error, data) {
-		if(error){
-		   console.log(error);
+	console.log("Looking at random.txt file now, please wait");
+	console.log("====================================");
+
+	//fs file to read random.txt
+	fs.readFile("random.txt", "utf8", function(err, data) {
+		if(err){
+			console.log(err);
 		}else{
-
-	//split data, declare variables
-	var dataArr = data.split('.');
-	firstEntry = data[0];
-	secondEntry = dataArr[1];
-	//if multi-word search term, add
-	for(i=2; i<dataArr.length; i++){
-		secondEntry = secondEntry + '+' + dataArr[i];
-	};
-	//run
+		// //split with comma for readability
+		var txt = data.split(',');
+		firstEntry = txt[0];
+		secondEntry = txt[1];
+		//if multi-word search term, add.
+        for(i=2; i<txt.length; i++){
+            secondEntry = secondEntry + "+" + txt[i];	
+		};
+		//run switch
 		theSwitcheroo();
-
 	};
-  
   });
-
 };
-
+	
 theSwitcheroo();
+
+		// console.log(txt[1]);
+
+		// spotifyMe(txt[1]);
+
+		// //print contents of data
+		// console.log(data);
+
+		// console.log(txt);
+		// console.log(txt[0]);
+
+		// secondEntry = txt[0];
+
+
 
 
 
